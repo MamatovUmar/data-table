@@ -4,9 +4,9 @@
 			<button
 				type="button"
 				class="btn btn__plain mb-30"
-				@click="showUsers()"
+				@click="showComments()"
 			>
-				Показать пользователей
+				Показать коментарии
 			</button>
 
 			<data-table
@@ -19,7 +19,7 @@
 				<div class="modal__bg" @click="modal_visible = false"></div>
 				<div class="modal__body">
 					<div class="modal__header">
-						<h4>{{ selected_row.fullname }}</h4>
+						<h4>{{ selected_row.name }}</h4>
 						<div
 							class="modal__close"
 							@click="modal_visible = false"
@@ -28,20 +28,7 @@
 						</div>
 					</div>
 					<div class="modal__content">
-						<div class="modal__list">
-							<strong>Город: </strong>
-							<span> {{ selected_row.address.city }} </span>
-						</div>
-						<div class="modal__list">
-							<strong>Адрес: </strong>
-							<span>
-								{{ selected_row.address.streetAddress }}
-							</span>
-						</div>
-						<div class="modal__list">
-							<strong>Почтовый индекс: </strong>
-							<span> {{ selected_row.address.zip }} </span>
-						</div>
+						{{ selected_row.body }}
 					</div>
 				</div>
 			</div>
@@ -64,30 +51,16 @@ export default {
 			selected_row: "",
 			modal_visible: false,
 			tableOptions: {
-				title: "Пользователи",
-				page_size: 10,
+				title: "Коментарии",
+				page_size: 15,
 				columns: [
 					{
 						label: "Имя",
-						value: "fullname",
-						width: "250px",
-					},
-					{
-						label: "Юзернаме",
-						value: "uname",
-						width: "200px",
-					},
-					{
-						label: "Компания",
-						value: "company",
+						value: "name",
 					},
 					{
 						label: "E-mail",
 						value: "email",
-					},
-					{
-						label: "Штат",
-						value: "address.state",
 					},
 				],
 			},
@@ -103,14 +76,14 @@ export default {
 				this.modal_visible = false;
 			}
 		},
-		openModal(user) {
+		openModal(comment) {
 			this.modal_visible = true;
-			this.selected_row = user;
+			this.selected_row = comment;
 		},
-		async showUsers() {
+		async showComments() {
 			try {
 				this.loading = true;
-				let res = await this.$store.dispatch("getUsers");
+				let res = await this.$store.dispatch("getComments");
 				this.loading = false;
 				this.data = res;
 			} catch (er) {
