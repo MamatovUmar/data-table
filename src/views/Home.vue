@@ -64,13 +64,13 @@ export default {
 			selected_row: "",
 			modal_visible: false,
 			tableOptions: {
-				title: "Пользователи",
-				page_size: 10,
+				title: "Пользователи", // заголовок таблицы (не обязательно)
+				page_size: 10, // количество строк в таблице (не обязательно. по умолчанию - 10)
 				columns: [
 					{
-						label: "Имя",
-						value: "fullname",
-						width: "250px",
+						label: "Имя", // название колонки
+						value: "fullname", // название индекса передаваемого объекта
+						width: "250px", // ширина колонки (не обязательно)
 					},
 					{
 						label: "Юзернаме",
